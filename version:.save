@@ -1,4 +1,5 @@
-version: "3.8"
+
+clversion: "3.8"
 
 services:
   mysql:
@@ -14,6 +15,7 @@ services:
     networks:
       - two-tier-nt
     restart: always
+    # Improved healthcheck: uses mysql query to ensure DB is actually ready
     healthcheck:
       test: ["CMD-SHELL", "mysql -uroot -proot -e 'SELECT 1' || exit 1"]
       interval: 5s
@@ -38,9 +40,12 @@ services:
       mysql:
         condition: service_healthy
     restart: on-failure
+    # Removed flask healthcheck temporarily to prevent container restart loops 
+    # while debugging port 5000 issues.
 
 volumes:
   mysql_data:
 
 networks:
   two-tier-nt:
+c
