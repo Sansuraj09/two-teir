@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages{
-        stage('Clone repo'){
+        stage('Clone  the repo'){
             steps{
                 git branch: 'main', url: 'https://github.com/Sansuraj09/two-teir.git'
             }
